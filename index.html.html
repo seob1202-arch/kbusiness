@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Global K-Biz</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+         * DESIGN SYSTEM — "Korean Modern"
+         * ==========================================
+         * Direction: Clean, bold, high-contrast.
+         * Mobile-first. Card-centric. Finger-friendly.
+         * Accent: vivid coral-red against off-white.
+         * ==========================================
+         */
+        :root {
+            --primary:        #FF4B4B;
+            --primary-dark:   #D93636;
+            --primary-light:  #FFF0F0;
+            --primary-glow:   rgba(255, 75, 75, 0.18);
+
+            --accent:         #1A1A2E;
+            --accent-mid:     #2D2D44;
+
+            --text-title:     #0F0F1A;
+            --text-body:      #4A4A5E;
+            --text-muted:     #9B9BB0;
+
+            --bg-app:         #F5F5FA;
+            --bg-white:       #FFFFFF;
+            --bg-card:        #FFFFFF;
+            --bg-chip:        #F0F0F8;
+
+            --border:         rgba(0, 0, 0, 0.07);
+            --border-active:  var(--primary);
+
+            --radius-sm:      10px;
+            --radius-md:      16px;
+            --radius-lg:      22px;
+            --radius-xl:      30px;
+
+            --shadow-xs:      0 2px 8px rgba(0,0,0,0.06);
+            --shadow-sm:      0 4px 16px rgba(0,0,0,0.08);
+            --shadow-md:      0 8px 28px rgba(0,0,0,0.10);
+            --shadow-primary: 0 6px 20px var(--primary-glow);
+
+            --transition:     all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* safe area for modern mobile */
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        
+        *, *::before, *::after {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: "Noto Sans KR", "DM Sans", sans-serif;
+            background: var(--bg-app);
+            color: var(--text-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =====================
+         * LAYOUT SHELL
+         * ===================== */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-app);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: calc(96px + var(--safe-bottom));
+        }
+
+        /* =====================
+         * HEADER
+         * ===================== */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 0 1.25rem;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: "DM Sans", sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-title);
+            letter-spacing: -0.3px;
+        }
+        .brand-logo-mark {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .brand-logo-mark svg { color: white; }
+
+        /* =====================
+         * HERO SECTION
+         * ===================== */
+        .hero-section {
+            background: var(--accent);
+            padding: 1.5rem 1.25rem 1.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+        /* decorative blobs */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 180px; height: 180px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30px; left: -20px;
+            width: 120px; height: 120px;
+            background: #7B61FF;
+            border-radius: 50%;
+            opacity: 0.07;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.35;
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-title span { color: var(--primary); }
+
+        /* Stats row inside hero */
+        .stats-row {
+            display: flex;
+            gap: 0;
+            background: rgba(255,255,255,0.07);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        .stat-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 0.5rem;
+        }
+        .stat-item + .stat-item {
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-num {
+            font-family: "DM Sans", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            margin-top: 3px;
+            letter-spacing: 0.03em;
+        }
+
+        /* =====================
+         * SEARCH SECTION
+         * ===================== */
+        .search-section {
+            padding: 1rem 1.25rem 0;
+            background: var(--bg-white);
+            position: sticky;
+            top: 58px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Location notice */
+        .location-notice {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--primary-light);
+            border: 1px solid rgba(255,75,75,0.15);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .btn-xs {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        /* Search input */
+        .search-box {
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+        .search-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 48px 0 46px;
+            border-radius: var(--radius-xl);
+            border: 2px solid transparent;
+            background: var(--bg-chip);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-title);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .search-input::placeholder { color: var(--text-muted); font-weight: 400; }
+        .search-input:focus {
+            outline: none;
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            display: flex;
+        }
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: none;
+            background: var(--text-muted);
+            color: white;
+            font-size: 0.8rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .search-clear.visible { display: flex; }
+
+        /* Filter row */
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+        .filter-row::-webkit-scrollbar { display: none; }
+
+        .custom-select {
+            flex-shrink: 0;
+            height: 38px;
+            padding: 0 28px 0 12px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24' stroke='%239B9BB0' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center/12px;
+            font-family: inherit;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--text-body);
+            appearance: none;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .custom-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .custom-select:disabled {
+            background-color: var(--bg-chip);
+            color: var(--text-muted);
+            cursor: default;
+        }
+        #sort-select {
+            border-color: rgba(255,75,75,0.3);
+            color: var(--primary-dark);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24' stroke='%23D93636' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        }
+
+        /* =====================
+         * CATEGORIES
+         * ===================== */
+        .category-section {
+            background: var(--bg-white);
+            padding-bottom: 2px;
+        }
+
+        /* Main tabs */
+        .main-cat-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1.25rem;
+            gap: 0;
+            scrollbar-width: none;
+            border-bottom: 1.5px solid var(--border);
+        }
+        .main-cat-scroll::-webkit-scrollbar { display: none; }
+
+        .main-cat-btn {
+            background: transparent;
+            border: none;
+            padding: 0.7rem 0.85rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .main-cat-btn[aria-checked="true"] {
+            color: var(--text-title);
+            font-weight: 800;
+        }
+        .main-cat-btn[aria-checked="true"]::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Sub chips */
+        .sub-cat-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0.7rem 1.25rem;
+            gap: 6px;
+            scrollbar-width: none;
+        }
+        .sub-cat-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-chip {
+            flex-shrink: 0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            background: var(--bg-chip);
+            color: var(--text-body);
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .cat-chip:active { transform: scale(0.94); }
+        .cat-chip[aria-checked="true"] {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: rgba(255,75,75,0.3);
+        }
+
+        /* =====================
+         * RESULTS HEADER
+         * ===================== */
+        .list-header {
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-app);
+        }
+        .list-count {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-body);
+        }
+        .list-count strong { color: var(--primary); }
+
+        .view-toggles {
+            display: flex;
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        .view-btn {
+            border: none;
+            background: transparent;
+            width: 38px;
+            height: 34px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .view-btn[aria-pressed="true"] {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* =====================
+         * CARDS — VIEW-CARD
+         * ===================== */
+        .biz-list { padding: 0 1rem; }
+
+        .biz-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: var(--shadow-xs);
+        }
+        .biz-card:active { transform: scale(0.985); }
+
+        /* Image wrapper */
+        .card-img-wrap {
+            position: relative;
+            width: calc(100% - 20px);
+            margin: 10px 10px 0;
+            height: 180px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--bg-chip);
+            flex-shrink: 0;
+        }
+        .card-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        /* Top-left category badge */
+        .card-cat-badge {
+            position: absolute;
+            top: 10px; left: 10px;
+            background: rgba(15,15,26,0.75);
+            backdrop-filter: blur(6px);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.02em;
+        }
+
+        /* Bottom rating */
+        .card-rating-badge {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            background: rgba(15,15,26,0.75);
+            backdrop-filter: blur(6px);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .star-icon { color: #FFCA28; font-size: 0.9em; }
+
+        /* Content */
+        .card-content { padding: 1rem 1.1rem 0.75rem; }
+
+        .biz-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-title);
+            margin-bottom: 6px;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        .tag {
+            font-size: 0.72rem;
+            color: var(--text-body);
+            background: var(--bg-chip);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .tag.distance {
+            background: #E6FAF0;
+            color: #1A7F4B;
+            font-weight: 700;
+        }
+
+        .biz-desc {
+            font-size: 0.855rem;
+            color: var(--text-body);
+            line-height: 1.55;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 0;
+        }
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .info-row svg { flex-shrink: 0; margin-top: 1px; }
+        .info-row span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Social row */
+        .social-row {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0 0;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        .btn-social {
+            background: var(--bg-chip);
+            border: 1.5px solid transparent;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-body);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        .btn-social:active { transform: scale(0.93); }
+        .btn-social.liked {
+            background: var(--primary-light);
+            border-color: rgba(255,75,75,0.25);
+            color: var(--primary-dark);
+        }
+        .btn-social.liked svg { fill: var(--primary); stroke: var(--primary); }
+
+        @keyframes pop {
+            0%   { transform: scale(1); }
+            45%  { transform: scale(1.45); }
+            100% { transform: scale(1); }
+        }
+        .anim-pop { animation: pop 0.28s ease; }
+
+        /* Card action buttons */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            padding: 0.75rem 1.1rem 1rem;
+        }
+        .btn-action {
+            flex: 1;
+            min-width: 0;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            gap: 5px;
+            background: var(--bg-white);
+            color: var(--text-body);
+            transition: var(--transition);
+        }
+        .btn-action:active { transform: scale(0.94); }
+        .btn-action.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-primary);
+        }
+        .btn-action .action-text { display: inline; }
+
+        /* =====================
+         * LIST VIEW
+         * ===================== */
+        .biz-list.view-list .biz-card {
+            flex-direction: row;
+            align-items: center;
+            padding: 12px;
+            gap: 12px;
+            border-radius: var(--radius-md);
+        }
+        .biz-list.view-list .card-img-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+            margin: 0;
+        }
+        .biz-list.view-list .card-cat-badge,
+        .biz-list.view-list .card-rating-badge { display: none; }
+        .biz-list.view-list .card-content { padding: 0; flex: 1; min-width: 0; }
+        .biz-list.view-list .biz-name { font-size: 0.92rem; margin-bottom: 4px; }
+        .biz-list.view-list .biz-desc,
+        .biz-list.view-list .info-list,
+        .biz-list.view-list .social-row,
+        .biz-list.view-list .card-actions { display: none !important; }
+        .biz-list.view-list .list-actions { display: flex; }
+        .biz-list.view-list .tag-row { margin-bottom: 4px; }
+
+        .list-actions {
+            display: none;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .icon-btn-circle {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: var(--bg-chip);
+            color: var(--text-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid var(--border);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .icon-btn-circle:active { transform: scale(0.88); }
+        .icon-btn-circle.call {
+            color: var(--primary);
+            background: var(--primary-light);
+            border-color: rgba(255,75,75,0.2);
+        }
+
+        /* Rating pill in list view */
+        .list-rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .biz-list.view-card .list-rating { display: none; }
+
+        /* =====================
+         * PAGINATION
+         * ===================== */
+        .pagination-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 1.25rem 0 0.5rem;
+            padding: 0 1rem;
+        }
+        .items-per-page {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .pagination-select {
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 4px 8px;
+            color: var(--text-body);
+            font-weight: 700;
+            font-size: 0.82rem;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            align-items: center;
+        }
+        .page-btn {
+            min-width: 40px;
+            height: 40px;
+            border: 1.5px solid var(--border);
+            background: var(--bg-white);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-body);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            padding: 0 4px;
+        }
+        .page-btn:hover:not(:disabled) { background: var(--bg-chip); }
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-primary);
+        }
+        .page-btn.nav-btn { color: var(--text-muted); }
+        .page-btn.nav-btn:disabled { opacity: 0.3; cursor: default; }
+        .page-dots {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0 2px;
+        }
+
+        /* =====================
+         * FAB
+         * ===================== */
+        .fab {
+            position: fixed;
+            bottom: calc(24px + var(--safe-bottom));
+            right: 20px;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 22px rgba(15,15,26,0.3);
+            cursor: pointer;
+            z-index: 300;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .fab:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(15,15,26,0.35); }
+        .fab:active { transform: scale(0.9); }
+
+        /* =====================
+         * MODALS
+         * ===================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1000;
+            display: flex;
+            backdrop-filter: blur(2px);
+        }
+
+        #subkeyword-modal { align-items: flex-end; }
+        #subkeyword-modal .modal-content {
+            width: 100%;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 0 0 calc(1.5rem + var(--safe-bottom));
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        #alert-modal { align-items: center; justify-content: center; }
+        #alert-modal .modal-content {
+            width: 88%;
+            max-width: 320px;
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        #alert-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-title);
+            margin-bottom: 0.6rem;
+        }
+        #alert-msg {
+            font-size: 0.92rem;
+            color: var(--text-body);
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 12px auto 0;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-title);
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-close-btn {
+            border: none;
+            background: var(--bg-chip);
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-body);
+            font-size: 1.1rem;
+            line-height: 1;
+            font-family: inherit;
+        }
+        .subkeyword-item {
+            padding: 14px 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.92rem;
+            color: var(--text-title);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .subkeyword-item:active { background: var(--bg-chip); }
+        .subkeyword-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: var(--bg-chip);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* =====================
+         * REVIEW MODAL (CHAT)
+         * ===================== */
+        #review-modal { align-items: flex-end; }
+        #review-modal .modal-content {
+            width: 100%;
+            height: 78vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            border-radius: 24px 24px 0 0;
+            background: white;
+        }
+        .chat-header {
+            padding: 0.9rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-title);
+        }
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: var(--bg-app);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .chat-bubble {
+            background: #fff;
+            padding: 10px 14px;
+            border-radius: 18px;
+            border-top-left-radius: 5px;
+            box-shadow: var(--shadow-xs);
+            max-width: 80%;
+            align-self: flex-start;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: var(--text-title);
+        }
+        .chat-bubble.mine {
+            background: var(--primary);
+            color: white;
+            border-radius: 18px;
+            border-top-right-radius: 5px;
+            align-self: flex-end;
+        }
+        .chat-date {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+            text-align: right;
+        }
+        .chat-bubble.mine .chat-date { color: rgba(255,255,255,0.7); }
+        .chat-empty {
+            text-align: center;
+            color: var(--text-muted);
+            margin: auto 0;
+            font-size: 0.88rem;
+            padding: 2rem;
+        }
+        .chat-input-area {
+            padding: 10px 12px calc(10px + var(--safe-bottom));
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 11px 16px;
+            border-radius: 24px;
+            border: 1.5px solid var(--border);
+            background: var(--bg-chip);
+            font-family: inherit;
+            font-size: 0.92rem;
+            color: var(--text-title);
+            transition: var(--transition);
+        }
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+        }
+        .btn-send {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-primary);
+            transition: var(--transition);
+        }
+        .btn-send:disabled { background: var(--text-muted); box-shadow: none; cursor: default; }
+        .btn-send:active:not(:disabled) { transform: scale(0.9); }
+
+        /* =====================
+         * UTILS
+         * ===================== */
+        .hidden { display: none !important; }
+
+        /* Empty state */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .empty-state svg { opacity: 0.25; }
+        .empty-state p { font-size: 0.9rem; font-weight: 500; }
+
+        /* Loading skeleton */
+        .skeleton-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .skeleton-img {
+            width: calc(100% - 20px);
+            height: 170px;
+            margin: 10px 10px 0;
+            border-radius: var(--radius-md);
+            background: linear-gradient(90deg, #f0f0f5 25%, #e8e8f0 50%, #f0f0f5 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+        }
+        .skeleton-body { padding: 1rem; display: flex; flex-direction: column; gap: 8px; }
+        .skeleton-line {
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #f0f0f5 25%, #e8e8f0 50%, #f0f0f5 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+        }
+        .skeleton-line.w-60 { width: 60%; }
+        .skeleton-line.w-40 { width: 40%; }
+        .skeleton-line.w-80 { width: 80%; }
+        @keyframes shimmer {
+            0%   { background-position: -200% 0; }
+            100% { background-position:  200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="brand-logo">
+                <div class="brand-logo-mark">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                Global K-Biz
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero-section">
+            <h1 class="hero-title">어떤 한인 업체를<br><span>찾으시나요?</span></h1>
+            <div class="stats-row">
+                <div class="stat-item"><span class="stat-num" id="total-businesses">0</span><span class="stat-label">업체</span></div>
+                <div class="stat-item"><span class="stat-num" id="total-countries">0</span><span class="stat-label">국가</span></div>
+                <div class="stat-item"><span class="stat-num" id="total-cities">0</span><span class="stat-label">도시</span></div>
+            </div>
+        </section>
+
+        <!-- STICKY SEARCH -->
+        <section class="search-section">
+            <div id="location-notice" class="location-notice hidden"></div>
+
+            <div class="search-box">
+                <span class="search-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </span>
+                <input type="text" id="search-input" class="search-input" placeholder="업체명, 지역, 키워드 검색">
+                <button class="search-clear" id="search-clear-btn" aria-label="검색어 삭제">✕</button>
+            </div>
+
+            <div class="filter-row">
+                <select id="country-select" class="custom-select"><option value="">전체 국가</option></select>
+                <select id="city-select" class="custom-select" disabled><option value="">도시 선택</option></select>
+                <select id="sort-select" class="custom-select">
+                    <option value="rating">⭐ 평점순</option>
+                    <option value="reviews">💬 리뷰순</option>
+                    <option value="distance">📍 거리순</option>
+                    <option value="recommends">👍 추천순</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="category-section">
+            <div class="main-cat-scroll" id="main-category-list"></div>
+            <div class="sub-cat-scroll" id="category-list"></div>
+        </section>
+
+        <!-- RESULTS HEADER -->
+        <div class="list-header">
+            <span class="list-count" id="results-text">결과 <strong>0</strong>개</span>
+            <div class="view-toggles">
+                <button class="view-btn" id="card-view-btn" aria-pressed="true" title="카드뷰">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="9" rx="2"/>
+                        <rect x="3" y="16" width="7" height="5" rx="2"/><rect x="14" y="16" width="7" height="5" rx="2"/>
+                    </svg>
+                </button>
+                <button class="view-btn" id="table-view-btn" aria-pressed="false" title="리스트뷰">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- CARDS -->
+        <div id="results-container" class="biz-list view-card"></div>
+        <div id="pagination-section"></div>
+
+        <!-- FAB: Share -->
+        <button class="fab" id="share-fab" aria-label="공유하기">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/>
+            </svg>
+        </button>
+
+        <!-- SUBKEYWORD MODAL -->
+        <div id="subkeyword-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div class="modal-handle"></div>
+                <div class="modal-header">
+                    <h3 id="modal-category-title">세부 선택</h3>
+                    <button id="modal-close-btn" class="modal-close-btn">✕</button>
+                </div>
+                <div id="subkeyword-list"></div>
+            </div>
+        </div>
+
+        <!-- ALERT MODAL -->
+        <div id="alert-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div id="alert-title">알림</div>
+                <div id="alert-msg"></div>
+                <button id="alert-ok-btn" class="btn-action primary" style="width:100%;justify-content:center;">확인</button>
+            </div>
+        </div>
+
+        <!-- REVIEW MODAL -->
+        <div id="review-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div class="modal-handle"></div>
+                <div class="chat-header">
+                    <span id="review-modal-title">리뷰</span>
+                    <button id="review-close-btn" class="modal-close-btn">✕</button>
+                </div>
+                <div id="review-list" class="chat-body"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="review-input" class="chat-input" placeholder="리뷰를 남겨주세요 (최대 50자)" maxlength="50">
+                    <button id="review-send-btn" class="btn-send">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        'use strict';
+        
+        let USER_UID = localStorage.getItem('gkb_uid');
+        if (!USER_UID) {
+            USER_UID = 'user_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('gkb_uid', USER_UID);
+        }
+        let LIKED_IDS = JSON.parse(localStorage.getItem('gkb_liked_ids')) || [];
+
+        const ICONS = {
+            phone: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+            map:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            email: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+            web:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+            location: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            clock:    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+        };
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        }
+        function formatDistance(d) {
+            return d < 1 ? `${Math.round(d*1000)}m` : `${d.toFixed(1)}km`;
+        }
+
+        let businessData = [];
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxLpJDMVy4-UfPVNTuYiHzTQFrg6rCF7ym-Z12d2Djd2kmJmyXNhwBbQcvchSsRGSNkLw/exec';
+
+        const state = {
+            currentView: 'card', filteredData: [], currentPage: 1, itemsPerPage: 10,
+            selectedMainCategory: '전체', selectedCategories: new Set(['전체']), selectedSubkeyword: '',
+            searchQuery: '', selectedCountry: '', selectedCity: '', sortBy: 'rating',
+            userLocation: null, isLoading: false, activeReviewId: null
+        };
+
+        const $ = {
+            searchInput:        document.getElementById('search-input'),
+            searchClearBtn:     document.getElementById('search-clear-btn'),
+            countrySelect:      document.getElementById('country-select'),
+            citySelect:         document.getElementById('city-select'),
+            sortSelect:         document.getElementById('sort-select'),
+            mainCategoryList:   document.getElementById('main-category-list'),
+            categoryList:       document.getElementById('category-list'),
+            cardViewBtn:        document.getElementById('card-view-btn'),
+            tableViewBtn:       document.getElementById('table-view-btn'),
+            resultsContainer:   document.getElementById('results-container'),
+            resultsText:        document.getElementById('results-text'),
+            paginationSection:  document.getElementById('pagination-section'),
+            locationNotice:     document.getElementById('location-notice'),
+            subkeywordModal:    document.getElementById('subkeyword-modal'),
+            subkeywordList:     document.getElementById('subkeyword-list'),
+            modalCategoryTitle: document.getElementById('modal-category-title'),
+            modalCloseBtn:      document.getElementById('modal-close-btn'),
+            alertModal:         document.getElementById('alert-modal'),
+            alertTitle:         document.getElementById('alert-title'),
+            alertMsg:           document.getElementById('alert-msg'),
+            alertOkBtn:         document.getElementById('alert-ok-btn'),
+            shareFab:           document.getElementById('share-fab'),
+            totalBusinesses:    document.getElementById('total-businesses'),
+            totalCountries:     document.getElementById('total-countries'),
+            totalCities:        document.getElementById('total-cities'),
+            reviewModal:        document.getElementById('review-modal'),
+            reviewList:         document.getElementById('review-list'),
+            reviewInput:        document.getElementById('review-input'),
+            reviewSendBtn:      document.getElementById('review-send-btn'),
+            reviewCloseBtn:     document.getElementById('review-close-btn'),
+            reviewTitle:        document.getElementById('review-modal-title')
+        };
+
+        let searchTimeout = null;
+
+        function showCustomAlert(title, msg, type = 'default') {
+            $.alertTitle.textContent = title;
+            $.alertMsg.textContent = msg;
+            type === 'loading' ? $.alertOkBtn.classList.add('hidden') : $.alertOkBtn.classList.remove('hidden');
+            $.alertModal.classList.remove('hidden');
+        }
+        function closeCustomAlert() { $.alertModal.classList.add('hidden'); }
+
+        async function init() {
+            try {
+                state.isLoading = true;
+                renderResults();
+                const res = await fetch(GAS_URL);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                businessData = data.map(b => ({
+                    ...b,
+                    subkeywords: Array.isArray(b.subkeywords) ? b.subkeywords : [],
+                    recommends: b.recommends || 0,
+                    reviews: Array.isArray(b.reviews) ? b.reviews : []
+                }));
+                state.filteredData = [...businessData];
+                state.isLoading = false;
+                updateStats();
+                populateCountries();
+                populateMainCategories();
+                populateCategories();
+                setupEvents();
+                getUserLocation();
+                renderResults();
+                renderPagination();
+                updateResultCount();
+            } catch (error) {
+                state.isLoading = false;
+                renderResults();
+                console.error(error);
+            }
+        }
+
+        function updateStats() {
+            const countries = new Set(businessData.map(b => b.country));
+            const cities    = new Set(businessData.map(b => b.city));
+            animateNumber($.totalBusinesses, businessData.length);
+            animateNumber($.totalCountries, countries.size);
+            animateNumber($.totalCities, cities.size);
+        }
+        function animateNumber(el, target) {
+            let current = 0;
+            const steps = 30, stepTime = 1500/steps, inc = target/steps;
+            const t = setInterval(() => {
+                current += inc;
+                if (current >= target) { el.textContent = target; clearInterval(t); }
+                else el.textContent = Math.ceil(current);
+            }, stepTime);
+        }
+
+        function populateCountries() {
+            const countries = [...new Set(businessData.map(b => b.country))].sort();
+            $.countrySelect.innerHTML = '<option value="">전체 국가</option>';
+            countries.forEach(c => $.countrySelect.appendChild(new Option(c, c)));
+        }
+        function populateCities(country) {
+            $.citySelect.innerHTML = '<option value="">' + (country ? '전체 도시' : '국가 먼저 선택') + '</option>';
+            $.citySelect.disabled = !country;
+            if (country) {
+                [...new Set(businessData.filter(b => b.country === country).map(b => b.city))].sort()
+                    .forEach(c => $.citySelect.appendChild(new Option(c, c)));
+            }
+        }
+        function populateMainCategories() {
+            let filtered = businessData;
+            if (state.selectedCountry) filtered = filtered.filter(b => b.country === state.selectedCountry);
+            if (state.selectedCity) filtered = filtered.filter(b => b.city === state.selectedCity);
+            const mainCategories = new Set();
+            filtered.forEach(b => { if (b.category && b.category.trim()) mainCategories.add(b.category.trim()); });
+            const sorted = ['전체', ...Array.from(mainCategories).sort()];
+            $.mainCategoryList.innerHTML = '';
+            sorted.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'main-cat-btn';
+                btn.textContent = cat;
+                btn.setAttribute('aria-checked', state.selectedMainCategory === cat);
+                btn.onclick = () => {
+                    state.selectedMainCategory = cat;
+                    state.selectedCategories.clear(); state.selectedCategories.add('전체');
+                    state.selectedSubkeyword = '';
+                    populateMainCategories(); populateCategories(); handleFilterChange();
+                };
+                $.mainCategoryList.appendChild(btn);
+            });
+        }
+        function populateCategories() {
+            let filtered = businessData;
+            if (state.selectedCountry) filtered = filtered.filter(b => b.country === state.selectedCountry);
+            if (state.selectedCity) filtered = filtered.filter(b => b.city === state.selectedCity);
+            if (state.selectedMainCategory !== '전체') filtered = filtered.filter(b => b.category === state.selectedMainCategory);
+            const categories = new Set();
+            filtered.forEach(b => { if (Array.isArray(b.services)) b.services.forEach(s => categories.add(s)); });
+            const sorted = ['전체', ...Array.from(categories).sort()];
+            $.categoryList.innerHTML = '';
+            sorted.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'cat-chip';
+                btn.textContent = cat;
+                btn.setAttribute('aria-checked', state.selectedCategories.has(cat));
+                btn.onclick = () => handleCategoryClick(cat);
+                $.categoryList.appendChild(btn);
+            });
+        }
+        function handleCategoryClick(category) {
+            if (category === '전체') {
+                state.selectedCategories.clear(); state.selectedCategories.add('전체'); state.selectedSubkeyword = '';
+            } else {
+                state.selectedCategories.delete('전체');
+                if (state.selectedCategories.has(category)) {
+                    state.selectedCategories.delete(category);
+                    if (state.selectedCategories.size === 0) state.selectedCategories.add('전체');
+                } else {
+                    if (checkHasSubkeywords(category)) { showSubkeywordModal(category); return; }
+                    state.selectedCategories.add(category);
+                }
+            }
+            populateCategories(); handleFilterChange();
+        }
+        function checkHasSubkeywords(category) {
+            let filtered = businessData;
+            if (state.selectedMainCategory !== '전체') filtered = filtered.filter(b => b.category === state.selectedMainCategory);
+            return filtered.some(b => Array.isArray(b.services) && b.services.includes(category) && Array.isArray(b.subkeywords) && b.subkeywords.length > 0);
+        }
+        function showSubkeywordModal(category) {
+            $.modalCategoryTitle.textContent = `${category} 세부 선택`;
+            let filtered = businessData;
+            if (state.selectedMainCategory !== '전체') filtered = filtered.filter(b => b.category === state.selectedMainCategory);
+            const counts = {};
+            filtered.forEach(b => {
+                if (Array.isArray(b.services) && b.services.includes(category) && Array.isArray(b.subkeywords))
+                    b.subkeywords.forEach(sk => { if (sk) counts[sk] = (counts[sk]||0)+1; });
+            });
+            $.subkeywordList.innerHTML = '';
+            const allItem = document.createElement('div');
+            allItem.className = 'subkeyword-item';
+            allItem.innerHTML = `<span>전체 ${category}</span>`;
+            allItem.onclick = () => {
+                state.selectedCategories.clear(); state.selectedCategories.add(category);
+                state.selectedSubkeyword = '';
+                $.subkeywordModal.classList.add('hidden'); populateCategories(); handleFilterChange();
+            };
+            $.subkeywordList.appendChild(allItem);
+            Object.keys(counts).forEach(sk => {
+                const item = document.createElement('div');
+                item.className = 'subkeyword-item';
+                item.innerHTML = `<span>${sk}</span><span class="subkeyword-count">${counts[sk]}</span>`;
+                item.onclick = () => {
+                    state.selectedCategories.clear(); state.selectedCategories.add(category);
+                    state.selectedSubkeyword = sk;
+                    $.subkeywordModal.classList.add('hidden'); populateCategories(); handleFilterChange();
+                };
+                $.subkeywordList.appendChild(item);
+            });
+            $.subkeywordModal.classList.remove('hidden');
+        }
+        function handleFilterChange() {
+            state.currentPage = 1;
+            applyFilters(); applySorting(); renderResults(); renderPagination(); updateResultCount();
+        }
+        function applyFilters() {
+            state.filteredData = businessData.filter(b => {
+                if (state.searchQuery) {
+                    const q = state.searchQuery.toLowerCase();
+                    if (![b.businessName, b.address, b.feature].some(f => String(f).toLowerCase().includes(q))) return false;
+                }
+                if (state.selectedCountry && b.country !== state.selectedCountry) return false;
+                if (state.selectedCity    && b.city    !== state.selectedCity)    return false;
+                if (state.selectedMainCategory !== '전체' && b.category !== state.selectedMainCategory) return false;
+                if (!state.selectedCategories.has('전체')) {
+                    if (!b.services || !b.services.some(s => state.selectedCategories.has(s))) return false;
+                    if (state.selectedSubkeyword && (!b.subkeywords || !b.subkeywords.includes(state.selectedSubkeyword))) return false;
+                }
+                return true;
+            });
+        }
+        function applySorting() {
+            state.filteredData.sort((a, b) => {
+                if (state.sortBy === 'rating')    return b.rating - a.rating;
+                if (state.sortBy === 'reviews')   return b.reviewCount - a.reviewCount;
+                if (state.sortBy === 'distance')  return (a.distance||99999) - (b.distance||99999);
+                if (state.sortBy === 'recommends') return (b.recommends||0) - (a.recommends||0);
+                return 0;
+            });
+        }
+        function switchView(view) {
+            state.currentView = view;
+            $.cardViewBtn.setAttribute('aria-pressed', view === 'card');
+            $.tableViewBtn.setAttribute('aria-pressed', view === 'list');
+            $.resultsContainer.classList.toggle('view-list', view === 'list');
+            $.resultsContainer.classList.toggle('view-card', view === 'card');
+        }
+
+        function renderResults() {
+            $.resultsContainer.innerHTML = '';
+            if (state.isLoading) {
+                // Skeleton loaders
+                for (let i = 0; i < 3; i++) {
+                    $.resultsContainer.innerHTML += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line w-60"></div>
+                            <div class="skeleton-line w-80"></div>
+                            <div class="skeleton-line w-40"></div>
+                        </div>
+                    </div>`;
+                }
+                return;
+            }
+            if (state.filteredData.length === 0) {
+                $.resultsContainer.innerHTML = `
+                <div class="empty-state">
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+                    <p>검색 결과가 없습니다</p>
+                </div>`;
+                return;
+            }
+            const start = (state.currentPage - 1) * state.itemsPerPage;
+            const pageData = state.filteredData.slice(start, start + state.itemsPerPage);
+
+            pageData.forEach(b => {
+                const div = document.createElement('div');
+                div.className = 'biz-card';
+                const imgUrl = b.image || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23f0f0f5'%3E%3Crect width='100' height='100'/%3E%3C/svg%3E";
+                const distTag = b.distance ? `<span class="tag distance">📍${formatDistance(b.distance)}</span>` : '';
+                const tags = (b.services || []).slice(0, 2).map(s => `<span class="tag">${s}</span>`).join('');
+
+                // Card actions — first button = primary (call)
+                const phoneCardBtn = b.phone ? `<a href="tel:${b.phone}" class="btn-action primary">${ICONS.phone}<span class="action-text">전화</span></a>` : '';
+                const mapCardBtn   = b.googleMapsUrl ? `<a href="${b.googleMapsUrl}" target="_blank" class="btn-action">${ICONS.map}<span class="action-text">지도</span></a>` : '';
+                const webCardBtn   = b.website ? `<a href="https://${b.website}" target="_blank" class="btn-action">${ICONS.web}<span class="action-text">웹</span></a>` : '';
+                const emailCardBtn = b.email   ? `<a href="mailto:${b.email}" class="btn-action">${ICONS.email}<span class="action-text">이메일</span></a>` : '';
+                const allCardActions = [phoneCardBtn, mapCardBtn, webCardBtn, emailCardBtn].filter(Boolean).join('');
+
+                // List-view icon actions
+                const listPhone = b.phone ? `<a href="tel:${b.phone}" class="icon-btn-circle call">${ICONS.phone}</a>` : '';
+                const listMap   = b.googleMapsUrl ? `<a href="${b.googleMapsUrl}" target="_blank" class="icon-btn-circle">${ICONS.map}</a>` : '';
+                const listWeb   = b.website ? `<a href="https://${b.website}" target="_blank" class="icon-btn-circle">${ICONS.web}</a>` : '';
+                const listEmail = b.email   ? `<a href="mailto:${b.email}" class="icon-btn-circle">${ICONS.email}</a>` : '';
+                const allListActions = [listPhone, listMap, listWeb, listEmail].filter(Boolean).join('');
+
+                const catBadge = b.category ? `<div class="card-cat-badge">${b.category}</div>` : '';
+
+                div.innerHTML = `
+                <div class="card-img-wrap">
+                    <img src="${imgUrl}" class="card-img" alt="${b.businessName}" loading="lazy"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' fill=\'%23f0f0f5\'%3E%3Crect width=\'100\' height=\'100\'/%3E%3C/svg%3E'">
+                    ${catBadge}
+                    <div class="card-rating-badge"><span class="star-icon">★</span>${b.rating}</div>
+                </div>
+                <div class="card-content">
+                    <div class="biz-name">${b.businessName}</div>
+                    <div class="tag-row">${distTag}${tags}</div>
+                    <div class="biz-desc">${b.feature}</div>
+                    <div class="info-list">
+                        <div class="info-row">${ICONS.location}<span>${b.address}</span></div>
+                        <div class="info-row">${ICONS.clock}<span>${b.hours}</span></div>
+                    </div>
+                    <div class="social-row">
+                        <button class="btn-social ${LIKED_IDS.includes(b.id) ? 'liked' : ''}" onclick="window.handleLike(${b.id}, this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                            </svg>
+                            <span class="cnt">${b.recommends || 0}</span>
+                        </button>
+                        <button class="btn-social" onclick="window.openReviewModal(${b.id})">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                            </svg>
+                            리뷰 ${b.reviews ? b.reviews.length : 0}
+                        </button>
+                    </div>
+                    <div class="list-rating"><span class="star-icon">★</span>${b.rating}</div>
+                    <div class="list-actions">${allListActions}</div>
+                </div>
+                ${allCardActions ? `<div class="card-actions">${allCardActions}</div>` : ''}
+                `;
+                $.resultsContainer.appendChild(div);
+            });
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(state.filteredData.length / state.itemsPerPage);
+            $.paginationSection.innerHTML = '';
+            if (totalPages <= 0) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'pagination-container';
+
+            const label = document.createElement('div');
+            label.className = 'items-per-page';
+            label.innerHTML = '<span>페이지당</span>';
+            const select = document.createElement('select');
+            select.className = 'pagination-select';
+            [10, 20, 30].forEach(n => {
+                const opt = new Option(`${n}개`, n);
+                if (n === state.itemsPerPage) opt.selected = true;
+                select.appendChild(opt);
+            });
+            select.onchange = e => {
+                state.itemsPerPage = parseInt(e.target.value);
+                state.currentPage = 1;
+                renderResults(); renderPagination(); window.scrollTo(0,0);
+            };
+            label.appendChild(select);
+            wrapper.appendChild(label);
+
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'pagination';
+
+            const prev = document.createElement('button');
+            prev.className = 'page-btn nav-btn';
+            prev.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>';
+            prev.disabled = state.currentPage === 1;
+            prev.onclick = () => { if (state.currentPage > 1) { state.currentPage--; renderResults(); renderPagination(); window.scrollTo(0,0); }};
+            btnGroup.appendChild(prev);
+
+            const mkBtn = (n) => {
+                const b = document.createElement('button');
+                b.className = `page-btn ${n === state.currentPage ? 'active' : ''}`;
+                b.textContent = n;
+                b.onclick = () => { state.currentPage = n; renderResults(); renderPagination(); window.scrollTo(0,0); };
+                return b;
+            };
+            const mkDots = () => { const s = document.createElement('span'); s.className='page-dots'; s.textContent='…'; return s; };
+
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) btnGroup.appendChild(mkBtn(i));
+            } else {
+                btnGroup.appendChild(mkBtn(1));
+                if (state.currentPage > 3) btnGroup.appendChild(mkDots());
+                let s = Math.max(2, state.currentPage-1), e = Math.min(totalPages-1, state.currentPage+1);
+                if (state.currentPage <= 3) { s=2; e=4; }
+                if (state.currentPage >= totalPages-2) { s=totalPages-3; e=totalPages-1; }
+                for (let i=s; i<=e; i++) btnGroup.appendChild(mkBtn(i));
+                if (state.currentPage < totalPages-2) btnGroup.appendChild(mkDots());
+                btnGroup.appendChild(mkBtn(totalPages));
+            }
+
+            const next = document.createElement('button');
+            next.className = 'page-btn nav-btn';
+            next.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>';
+            next.disabled = state.currentPage === totalPages;
+            next.onclick = () => { if (state.currentPage < totalPages) { state.currentPage++; renderResults(); renderPagination(); window.scrollTo(0,0); }};
+            btnGroup.appendChild(next);
+
+            wrapper.appendChild(btnGroup);
+            $.paginationSection.appendChild(wrapper);
+        }
+
+        function updateResultCount() {
+            $.resultsText.innerHTML = `결과 <strong>${state.filteredData.length}</strong>개`;
+        }
+
+        function setupEvents() {
+            $.searchInput.addEventListener('input', e => {
+                $.searchClearBtn.classList.toggle('visible', e.target.value.length > 0);
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    state.searchQuery = e.target.value.trim();
+                    handleFilterChange();
+                }, 300);
+            });
+            $.searchClearBtn.addEventListener('click', () => {
+                $.searchInput.value = '';
+                $.searchClearBtn.classList.remove('visible');
+                state.searchQuery = '';
+                handleFilterChange();
+            });
+            $.countrySelect.addEventListener('change', e => {
+                state.selectedCountry = e.target.value; state.selectedCity = ''; $.citySelect.value = '';
+                populateCities(e.target.value); state.selectedMainCategory = '전체';
+                populateMainCategories(); populateCategories(); handleFilterChange();
+            });
+            $.citySelect.addEventListener('change', e => { state.selectedCity = e.target.value; handleFilterChange(); });
+            $.sortSelect.addEventListener('change', e => { state.sortBy = e.target.value; handleFilterChange(); });
+            $.cardViewBtn.addEventListener('click', () => switchView('card'));
+            $.tableViewBtn.addEventListener('click', () => switchView('list'));
+            $.modalCloseBtn.onclick = () => $.subkeywordModal.classList.add('hidden');
+            $.shareFab.onclick = async () => {
+                const shareData = { title: 'Global K-Biz', text: '전 세계 한인 업체 찾기', url: window.location.href };
+                if (navigator.share) { try { await navigator.share(shareData); } catch(e){} }
+                else { navigator.clipboard.writeText(window.location.href).then(() => showCustomAlert('알림', '주소가 복사되었습니다.')).catch(() => showCustomAlert('오류', '복사 실패')); }
+            };
+            $.alertOkBtn.onclick = closeCustomAlert;
+            $.reviewCloseBtn.onclick = () => $.reviewModal.classList.add('hidden');
+            $.reviewSendBtn.onclick = async function() {
+                const text = $.reviewInput.value.trim();
+                if (!text || $.reviewSendBtn.disabled) return;
+                const id = state.activeReviewId;
+                const target = businessData.find(b => b.id === id);
+                if (!target) return;
+                $.reviewSendBtn.disabled = true;
+                $.reviewInput.disabled  = true;
+                showCustomAlert('전송 중', '리뷰를 등록하고 있습니다...', 'loading');
+                try {
+                    await fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ action:'review', id, text, uid: USER_UID }) });
+                    if (!target.reviews) target.reviews = [];
+                    target.reviews.unshift({ text, date: new Date().toISOString().slice(0,10), uid: USER_UID });
+                    target.reviewCount = (target.reviewCount||0)+1;
+                    renderChatList(target.reviews);
+                    $.reviewInput.value = '';
+                    renderResults();
+                    showCustomAlert('완료', '리뷰가 등록되었습니다.');
+                } catch(e) {
+                    showCustomAlert('실패', '리뷰 전송에 실패했습니다.');
+                } finally {
+                    $.reviewSendBtn.disabled = false;
+                    $.reviewInput.disabled   = false;
+                }
+            };
+        }
+
+        function getUserLocation() {
+            if (!navigator.geolocation) return;
+            $.locationNotice.classList.remove('hidden');
+            $.locationNotice.innerHTML = `<span>📍 내 주변 가까운 업체 찾기</span><button class="btn-xs" id="btn-loc">허용</button>`;
+            document.getElementById('btn-loc').onclick = function() {
+                this.textContent = '확인 중…'; this.disabled = true;
+                navigator.geolocation.getCurrentPosition(pos => {
+                    state.userLocation = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
+                    businessData.forEach(b => {
+                        b.distance = calculateDistance(state.userLocation.latitude, state.userLocation.longitude, b.latitude, b.longitude);
+                    });
+                    $.locationNotice.classList.add('hidden');
+                    showCustomAlert('완료', '📍 이제 거리순 정렬이 가능해요!');
+                    handleFilterChange();
+                }, () => {
+                    this.textContent = '허용'; this.disabled = false;
+                    showCustomAlert('알림', '위치 정보를 가져올 수 없습니다.');
+                }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
+            };
+        }
+
+        window.handleLike = function(id, btn) {
+            if (LIKED_IDS.includes(id)) { showCustomAlert('알림', '이미 추천한 업체입니다.'); return; }
+            const cntSpan = btn.querySelector('.cnt');
+            cntSpan.textContent = parseInt(cntSpan.textContent||'0') + 1;
+            btn.classList.add('liked', 'anim-pop');
+            btn.addEventListener('animationend', () => btn.classList.remove('anim-pop'), { once: true });
+            LIKED_IDS.push(id);
+            localStorage.setItem('gkb_liked_ids', JSON.stringify(LIKED_IDS));
+            const target = businessData.find(b => b.id === id);
+            if (target) target.recommends = (target.recommends||0)+1;
+            fetch(GAS_URL, { method:'POST', body: JSON.stringify({ action:'recommend', id, uid: USER_UID }) }).catch(console.error);
+        };
+
+        window.openReviewModal = function(id) {
+            state.activeReviewId = id;
+            const target = businessData.find(b => b.id === id);
+            if (!target) return;
+            $.reviewTitle.textContent = target.businessName;
+            $.reviewInput.value = '';
+            renderChatList(target.reviews || []);
+            $.reviewModal.classList.remove('hidden');
+        };
+
+        function renderChatList(reviews) {
+            $.reviewList.innerHTML = '';
+            if (!reviews || reviews.length === 0) {
+                $.reviewList.innerHTML = '<div class="chat-empty">💬 첫 번째 리뷰를 남겨보세요!</div>';
+                return;
+            }
+            reviews.forEach(r => {
+                const isMine = r.uid === USER_UID;
+                const div = document.createElement('div');
+                div.className = `chat-bubble${isMine ? ' mine' : ''}`;
+                div.innerHTML = `${r.text}<span class="chat-date">${r.date}</span>`;
+                $.reviewList.appendChild(div);
+            });
+            $.reviewList.scrollTop = $.reviewList.scrollHeight;
+        }
+
+        init();
+    })();
+    </script>
+</body>
+</html>
